@@ -4,3 +4,4 @@
 - Make a bottom sheet dialog
 - Make a navigation drawer
 - Generating notifications
+- Make a simple recyler view
