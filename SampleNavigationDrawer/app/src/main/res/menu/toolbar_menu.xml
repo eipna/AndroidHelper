@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="New student"
+        android:id="@+id/student"/>
+
+    <item android:title="New librarian"
+        android:id="@+id/librarian"/>
+
+    <item android:title="New admin"
+        android:id="@+id/admin"/>
+</menu>
