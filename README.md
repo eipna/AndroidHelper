@@ -5,3 +5,4 @@
 - Make a navigation drawer
 - Generating notifications
 - Make a simple recyler view
+- Make a recycler view with details activity
