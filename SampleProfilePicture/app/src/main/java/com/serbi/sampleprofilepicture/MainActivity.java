@@ -1,6 +1,14 @@
 package com.serbi.sampleprofilepicture;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +16,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class MainActivity extends AppCompatActivity {
+
+    private FloatingActionButton btn_editProfile;
+    private TextView user_firstName, user_lastName;
+    private ImageView user_profile;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +34,35 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        btn_editProfile = findViewById(R.id.btn_edit);
+        user_firstName = findViewById(R.id.user_firstName);
+        user_lastName = findViewById(R.id.user_lastName);
+        user_profile = findViewById(R.id.user_profile_picture);
+
+        databaseHelper = new DatabaseHelper(MainActivity.this);
+        Cursor cursor = databaseHelper.getUser();
+
+        if (cursor.getCount() == 0) {
+            Toast.makeText(this, "No profile details", Toast.LENGTH_SHORT).show();
+        } else {
+            while (cursor.moveToNext()) {
+                user_firstName.setText(cursor.getString(1));
+                user_lastName.setText(cursor.getString(2));
+                byte[] byteImage = cursor.getBlob(3);
+
+                Bitmap bitmap = BitmapFactory.decodeByteArray(byteImage, 0, byteImage.length);
+                user_profile.setImageBitmap(bitmap);
+            }
+        }
+
+        btn_editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, EditActivity.class));
+                finish();
+            }
         });
     }
 }
