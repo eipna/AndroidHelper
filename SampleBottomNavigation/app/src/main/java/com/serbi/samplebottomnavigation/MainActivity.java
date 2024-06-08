@@ -35,15 +35,12 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bnv_profile) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.bnv_frame_layout, profileFragment).commit();
-                return true;
             } else if (item.getItemId() == R.id.bnv_archive) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.bnv_frame_layout, archiveFragment).commit();
-                return true;
             } else if (item.getItemId() == R.id.bnv_settings) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.bnv_frame_layout, settingsFragment).commit();
-                return true;
             }
-            return false;
+            return true;
         });
     }
 }
